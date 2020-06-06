@@ -96,3 +96,73 @@ class Solution(object):
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
 # param_1 = obj.pickIndex()
+
+#===========================================================================================
+# Another Simple explanation of Problem
+# We have given an array w = [1, 3]
+# i.e. for index 0 - weight is 1
+# for index 1 - weight is 3
+# We need to write a function which will pick index in proportion to its weight.
+# what does it mean by 'Proportion to its weight' :-
+# The probablity that index got picked is proportion to tha value of a number with 
+# regards to the total sum of a number
+# Index-0 will be picked, chances are = 1/4 = 25%
+# chances Index-1 will be picked, are = 3/4 = 75%
+# Lets represent this on surface.
+#
+# 0--------1-------------------4
+#     25%            75%
+
+# The question is if I give you random number between 0 to 4
+# We need to tell in which portion it will lie.
+# we can get random number using random(0,1)
+# This will give me random number between 0 to 1
+# and then we will multiply with total_sum - then it will give me value between 0 to 4
+# Lets suppose from random.random(0,1) we get 0.5
+# so if multiply 0.5 with 4 = we get 2
+# Now, check where '2' lies -- So '2' lies in 75% area i.e. index1
+# So we will return index-1
+
+# Another example 
+# w = [1, 3, 4]
+# chances index-0 will be picked = 1/8
+# chances index-1 will be picked = 3/8
+# chances index-2 will be picked = 4/8
+
+# lets draw this on surface
+
+# 0----1----------4----------8
+
+# Now generate random number between 0 to 1
+# and then multiply by total_sum
+# and then check output lies on which area - that is the index and return it.
+# =======================================================================================
+
+# Accepted in Leetcode
+import random
+class Solution(object):
+
+    def __init__(self, w):
+        """
+        :type w: List[int]
+        """
+        self.w_cum = []
+        self.sum = 0
+        for i in w:
+            self.sum += i
+            self.w_cum.append(self.sum)
+
+    def pickIndex(self):
+        """
+        :rtype: int
+        """
+        random_num  = self.sum * random.random()
+        l = 0
+        r = len(self.w_cum) - 1
+        while (l < r):
+            mid = l + (r-l) // 2
+            if self.w_cum[mid] < random_num:
+                l = mid + 1
+            else:
+                r = mid
+        return l    
