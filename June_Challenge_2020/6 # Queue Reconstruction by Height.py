@@ -15,7 +15,9 @@
 # Output:
 # [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
 
+# ================================================================
 # Accepted in leetcode
+
 # Approach - Sort the people on basis of height (decreasing order)
 # if two people heights are equal, the sort on 2nd parameter
 # Then check every element, and put into at correct index (i.e. number of people should be in front)
