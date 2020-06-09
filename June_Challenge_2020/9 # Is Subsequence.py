@@ -67,3 +67,24 @@ class Solution(object):
 
 # ===================================================================================
 
+# Another Method - More Optimized and simple than above
+# Accepted in Leetcode
+
+class Solution(object):
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s) > len(t):
+            return False
+        else:
+            for ch in s:
+                if ch in t:
+                    idx = t.index(ch)
+                    t = t[idx+1:]
+                else:
+                    return False
+        return True
+# =================================================================================
