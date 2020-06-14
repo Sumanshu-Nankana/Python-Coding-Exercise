@@ -41,7 +41,15 @@
 #     k is in the range of [0, n - 1].
 #     There will not be any duplicated flights or self cycles.
 
-# =========================================================================
+# ===============================================================================
+
+# We will create a Adjacency matrix
+# and we will use min priority queue
+# and will insert the source into that , and 2 edges = 1 Stop (thus we are using K+1)
+# we will pop every node from queue and check its nearest one
+# if we get destination node and with in K limit - we return it
+
+# Accepted in Leetcode
 import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
@@ -64,3 +72,5 @@ class Solution:
                     heapq.heappush(queue, (d + v[1], v[0], e-1))
         
         return -1
+
+# =====================================================================================
