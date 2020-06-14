@@ -44,10 +44,14 @@
 # ===============================================================================
 
 # We will create a Adjacency matrix
-# and we will use min priority queue
-# and will insert the source into that , and 2 edges = 1 Stop (thus we are using K+1)
-# we will pop every node from queue and check its nearest one
-# if we get destination node and with in K limit - we return it
+# and we will use min priority queue (based on price - the first parameter)
+# and will insert the source into that , and edges which is K+1
+# as 1 Stop means 2 edges
+# we will pop every node from queue 
+# and check if we get destination node and with in K limit - we return it
+# else, we will push its nearest node
+
+# we will use a graph
 
 # Accepted in Leetcode
 import heapq
