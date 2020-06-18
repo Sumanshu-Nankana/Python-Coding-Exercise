@@ -29,18 +29,37 @@
 # Linear Approach - O(n) 
 # Accepted in Leetcode
 
+# Explantion via example: citations = [0,1,3,5,6]
+# lets start from index 0 - how many papers have citations atleast 0 = 5
+# Now index 1 - How many papers have citations atleast 1 => 4
+# Now index 2 - how many papers have citations atleast 3 => 3
+# Now index 4 - How many papers have citations atleast 5 => 2 (But this violate the condition)
+# Because Number of atleast papers should be >= citation number (Here citation is 5 and paper only 2)
+# So best answer is 3
+
+# Another example: citations = [1,1,1,1,1,4,4,5,6]
+# index0 - How many papers have citations atleast 1 => 9 ; h-index=1
+# index1 - How many papers have citations atleast 1 => 8 (Please note we will only count next papers)
+# idnex2 - How many papers have citations atleast 1 => 7 ; h-index=1
+# index3 - How many papers have citations atleast 1 => 6 ; h-index=1
+# index4 - How many papers have citations atleast 1 => 5 ; h-index=1
+# index5 - How many papers have citations atleast 4 => 4 ; h-index=4
+# index6 - How many papers have citations atleast 4 => 3  (violates the condition)
+# so best answer is 4 (as we need to take the maximum h-index)
+# as there are many citations which satisfy condition; but we need to pick max citations which satisfy the condition
+# which is 4
+# so h-index is 4 (i.e. number of next papers >= citation)
+
 class Solution(object):
     def hIndex(self, citations):
         """
         :type citations: List[int]
         :rtype: int
         """
-        n = len(citations)
-        i = n-1
-        while(i>=0):
-            if(citations[i] < n-i): break
-            i = i -1
-        return n-i-1       
+        i, n = 0, len(citations)
+        while(i<n and n-i > citations[i]):
+            i+=1
+        return n-i      
         
     
 # ===============================================================================
@@ -54,16 +73,16 @@ class Solution(object):
         :type citations: List[int]
         :rtype: int
         """
-        n = len(citations)
-        left = 0
-        right = n-1
+        left, right, n = 0, len(citations)-1, len(citations)
         while (left<=right):
             mid = left + (right-left)//2
-            if citations[mid] < n-mid:
-                left = mid + 1
+            if citations[mid] == n-mid:
+                return n - mid
+            elif citations[mid] > n-mid:
+                right = mid-1
             else:
-                right = mid -1
-        return n - left
+                left = mid+1
+        return n-left
     
 # ================================================================================
 
