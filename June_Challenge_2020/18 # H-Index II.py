@@ -58,7 +58,7 @@ class Solution(object):
         left = 0
         right = n-1
         while (left<=right):
-            mid = left + (right-left)/2
+            mid = left + (right-left)//2
             if citations[mid] < n-mid:
                 left = mid + 1
             else:
