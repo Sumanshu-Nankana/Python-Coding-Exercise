@@ -61,3 +61,12 @@ class Solution(object):
         return 1 + self.countNodes(root.left) + self.countNodes(root.right)
 
 # ======================================================================================
+
+# The other way is to PREORDER or INORDER or POSTORDER traversal of TREE
+# and count the number of Nodes.
+# But that is not effcient in that we took O(n) as we traverse all nodes
+
+# But in above method, we are not traversing all nodes.
+# We are only traversing few nodes and then we use the property of Complete Binary Tree
+
+# ======================================================================================
