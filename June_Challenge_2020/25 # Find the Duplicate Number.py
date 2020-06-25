@@ -104,3 +104,39 @@ nums = [1,3,4,2,2]
 obj.findDuplicate(nums)
 
 # =====================================================================================
+# A little bit change in above method - to avoid even  using
+# extra 2 variable
+#
+# We know we added 'n' to all numbers
+# and number lies between 1 to (n-1)
+# So, when we add 'n' maximum number could be n*2 - 1
+# if there are duplicates,  then we added that number to index twice
+# So number reaches > 2*n -1
+# So we scan array at end and see which number > 2*n -1
+# and store it's index
+
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        
+        for i in range(n):
+            if nums[i] > n:
+                id_ = nums[i]%n
+            else:
+                id_ = nums[i]
+                
+            nums[id_] += n
+        
+        for i in range(n):
+            if nums[i] > n*2-1:
+                output = i
+            
+            nums[i] %= n
+        
+        return output
+
+# =================================================================================
