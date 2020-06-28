@@ -58,3 +58,28 @@ class Solution(object):
         return output
 
 # =================================================================
+# Accepted in Leetcode
+
+class Solution(object):
+    def findItinerary(self, tickets):
+        self.adj = {}
+        tickets.sort(key = lambda x: x[1])
+        
+        for u,v in tickets:
+            if u in self.adj: self.adj[u].append(v)
+            else: self.adj[u] = [v]
+        
+        self.result = []
+        self.dfs("JFK")
+        
+        return self.result[::-1]
+    
+    
+    def dfs(self, s):
+        while s in self.adj and len(self.adj[s]) > 0:
+            v = self.adj[s][0]
+            self.adj[s].pop(0)
+            self.dfs(v)
+        
+        self.result.append(s)
+# ==============================================================================
