@@ -56,8 +56,7 @@
 
 # ==================================================================================
 
-# Recursive approach
-# But Not Accepted in Leetcode ==> Time Limit Exceeded for input = 42   (41/588 test cases passed)
+# Recursion - Time Limit Exceeded - 47 / 588 test cases passed.
 
 class Solution(object):
     def numSquares(self, n):
@@ -65,14 +64,16 @@ class Solution(object):
     
     def helper(self, n):
         # Base-cases
-        if n == 0: return 0
-        if n < 0: return 9999999
+        if n <= 3:
+            return n
         
-        min_ = n   # Max n squares possible (with 1) for worst answer
-        for i in range(1, n+1):
-            min_ = min(self.helper(n-i*i), min_)
+        output = n                                      # Max n squares possible (with 1) for worst answer
+        i = 1
+        while i*i <= n:
+            output = min(1+self.helper(n-i*i), output)
+            i+=1
         
-        return min_+1
+        return output
         
 obj = Solution()
 n = int(input())
@@ -80,88 +81,58 @@ print(obj.numSquares(n))
 
 # =======================================================================================
 
-# Dynamic Programming - Memoization
+# Recursion with Memoization = Accepted - 588 / 588 test cases passed. (But Runtime is worst of all submission)
+# Also a Dynamic Programming
 
-# We will create a array to store earlier solved problems
-# and array will be 1 large than size of 'n' as we will store value if 0
-# [0,1,2,3,4,5,6,7,8,9,10,11,12] ==> So total 13 index - all will be initialize with 0
-
-# Still not accepted in Leetcode ==> Time Limit Exceeded for input 7168  (502 / 588 test cases passed)
-
-import sys
 class Solution(object):
     def numSquares(self, n):
         self.dp = [0]*(n+1)
-        return self.helper(n, self.dp)
+        return self.helper(n)
     
-    def helper(self, n, dp):
+    def helper(self, n):
         # Base-cases
-        if n == 0: return 0
-        if n < 0: return 9999999
-        if self.dp[n] > 0: return self.dp[n]
+        if n <= 3:
+            return n
         
-        min_ = n   # Max n squares possible (with 1) for worst answer
-        for i in range(1, n+1):
-            min_ = min(self.helper(n-i*i, self.dp), min_)
+        if self.dp[n]!=0:
+            return self.dp[n]
         
-        self.dp[n] = min_+1
-        return min_+1
+        output = n                                      # Max n squares possible (with 1) for worst answer
+        i = 1
+        while i*i <= n:
+            output = min(1+self.helper(n-i*i), output)
+            i+=1
+        
+        self.dp[n] = output
+        
+        return output
         
 obj = Solution()
 n = int(input())
-sys.setrecursionlimit(10000)  # Without setting this, even here as well code is failing with Recursion Limit
 print(obj.numSquares(n))
 
 # ========================================================================================
 
-# Dynamic Programming - Memoization
-
-# 588 / 588 test cases passed.
-# But looks its Still not optimized  its taking more than 7000 seconds
-
-
-class Solution(object):
-    def numSquares(self, n):
-        self.dp = [0]*(n+1)
-        return self.helper(n, self.dp)
-    
-    def helper(self, n, dp):
-        # Base-cases
-        if n == 0: return 0
-        if self.dp[n] > 0: return self.dp[n]
-        
-        min_ = n   # Max n squares possible (with 1) for worst answer
-        
-        # we improved a little bit - instead of running till n
-        # we run till sqaures < n
-        i = 1
-        while i*i <= n:
-            min_ = min(self.helper(n-i*i, self.dp), min_)
-            i+=1
-        
-        self.dp[n] = min_+1
-        return min_+1
-        
-obj = Solution()
-n = int(input())
-print(obj.numSquares(n))
-
-# =====================================================================================
-
-# Accepted in Leetcode
-# and take 3000 ms (more optimized)
+# Dynamic Programming - Tabulation = = Accepted - 588 / 588 test cases passed. 
+# But Runtime is better than above , but still only 26 % better than other submission
 
 class Solution(object):
     def numSquares(self, n):
         dp = [0]*(n+1)
         for i in range(1, n+1):
-            min_ = i   # for all 1's worst case
-            y, sq = 1, 1
-            while sq <= i:
-                min_ = min(min_, 1+dp[i-sq])
-                y+=1
-                sq = y*y
-            dp[i] = min_
+            dp[i] = i                    # Max i squares possible (with 1) for worst answer
+            j = 1
+            while j*j <= i:
+                sq = j*j
+                dp[i] = min(dp[i], 1+dp[i-sq])
+                j+=1
+        
         return dp[n]
+        
+obj = Solution()
+n = int(input())
+print(obj.numSquares(n))
 
-# ======================================================================================
+# ==============================================================================
+
+# Another Best approach is - Legendre's 3-sqaure Theorem - which will only take sqrt(n) time.
