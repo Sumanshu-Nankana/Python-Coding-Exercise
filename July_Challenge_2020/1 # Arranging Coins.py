@@ -60,4 +60,46 @@ obj = Solution()
 n = int(input())             # number of coins
 print(obj.arrangeCoins(n))
 
-# ===================================================================================
+# ==================================================================================
+# Accepted in Leetcode
+# More optimized in O(logn) way
+# Approach - we know Sum of first n number is n*(n+1)/2
+# or if we can se sum of first K stairs is K*(k+1)/2
+# And this value should be <= N
+# and we need to find the max value of 'K'
+class Solution(object):
+    def arrangeCoins(self, n):
+        start = 0
+        end = n
+        while start <= end:
+            mid = start + (end-start)//2
+            k = mid
+            if n >= int(k*(k+1)/2):
+                start = mid+1
+            else:
+                end = mid-1
+        return start-1
+    
+obj = Solution()
+n = int(input())             # number of coins
+print(obj.arrangeCoins(n))
+
+# ==================================================================================
+# Accepted in Leetcode
+# More Optmized in O(1)
+# Approach:
+# k*(k+1)/2 <= N
+# k^2 + K <= 2N
+# k^2 + K - 2N = 0
+# K = sqrt(2N+1/4)-1/2
+import math
+class Solution(object):
+    def arrangeCoins(self, n):
+        return int(math.sqrt(2*n+0.25) - 0.5)
+
+    
+obj = Solution()
+n = int(input())             # number of coins
+print(obj.arrangeCoins(n))
+
+# ==================================================================================
