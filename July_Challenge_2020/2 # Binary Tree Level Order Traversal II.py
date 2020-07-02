@@ -18,7 +18,8 @@
 #   [3]
 # ]
 # ========================================================================
-
+# Accepted in Leetcode
+# Approch - Follow BFS
 class Solution(object):
     def levelOrderBottom(self, root):
         if root is None: return []
