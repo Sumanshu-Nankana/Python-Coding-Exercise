@@ -106,10 +106,10 @@ class Solution(object):
             child = curr.child
             _next = curr.next
             if child is not None:
-                _tail = self.flattern_list(child)
-                _tail.next = _next
+                tail = self.flattern_list(child)
+                tail.next = _next
                 if _next is not None:
-                    _next.prev = _tail
+                    _next.prev = tail
                 curr.next = child
                 child.prev = curr
                 curr.child = None
