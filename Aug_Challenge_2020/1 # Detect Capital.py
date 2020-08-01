@@ -47,3 +47,27 @@ class Solution(object):
         return False
 
 # ==========================================================================
+
+# Accepted in Leetcode
+# Another Approach
+# We have only below posisble conditions
+# AB...(if first two upper then from 3 to rest all should be upper)
+# Ab...(if either first or 2nd is not upper - then from 2nd to last all should be lower)
+
+class Solution(object):
+    def detectCapitalUse(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        if len(word) < 2: return True
+        if word[0].isupper() and word[1].isupper():
+            for i in range(2, len(word)):
+                if word[i].islower(): return False
+        else:
+            for i in range(1, len(word)):
+                if word[i].isupper(): return False
+        
+        return True
+
+# ============================================================================
