@@ -39,7 +39,7 @@ class Solution(object):
         for idx,guess_dig in enumerate(guess):
             if secret[idx] == guess_dig:
                 A += 1
-                # Replacig the macthed character with some 'dummy' character both in guess and secret
+                # Replacig the matched character with some 'dummy' character both in guess and secret
                 secret = secret[:idx]+'D'+secret[idx+1:]
                 guess = guess[:idx]+'D'+guess[idx+1:]
         
