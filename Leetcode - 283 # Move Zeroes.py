@@ -2,7 +2,7 @@ from typing import List
 
 
 class Solution:
-    def moveZeroesBruteForceMethod(self, nums: List[int]) -> None:
+    def moveZeroesBruteForceMethod(self, nums: List[int]) -> List[int]:
         output = []
         for i in nums:
             if i != 0:
@@ -29,7 +29,6 @@ class Solution:
                 left = left + 1
                 right = right + 1
 
-        return nums
 
     def moveZerosTwoPointersAnotherApproach(self, nums: List[int]) -> None:
         i = 0
@@ -40,13 +39,3 @@ class Solution:
 
         for x in range(i, len(nums)):
             nums[x] = 0
-
-        return nums
-
-
-nums = [0, 1, 0, 3, 12]
-print(Solution().moveZeroesBruteForceMethod(nums))
-nums = [0, 1, 0, 3, 12]
-print(Solution().moveZerosTwoPointers(nums))
-nums = [0, 1, 0, 3, 12]
-print(Solution().moveZerosTwoPointersAnotherApproach(nums))
