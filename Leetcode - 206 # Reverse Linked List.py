@@ -18,6 +18,20 @@ class Solution:
             current = _next
         return previous
 
+#   HELPER   HEAD      NEXT
+#   NONE      1-------->2--------->3--------->4---------->5
+    # We will keep track of previous node and next node
+    # we will just reverse the pointers
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        helper = None
+        while head is not None:
+            nextNode = head.next
+            head.next = helper
+            helper = head
+            head = nextNode
+        return helper
+
+
 
     # Recursion will take a lot of memory
     def reverseListRecursively(self, head: Optional[ListNode]) -> Optional[ListNode]:
