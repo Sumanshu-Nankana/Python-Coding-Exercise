@@ -13,3 +13,13 @@ class Solution(object):
                 output.append(r)
 
         return output
+
+
+# Same approach - Just using List Comprehension
+class Solution(object):
+    def subsets(self, nums):
+        output = [[]]
+
+        for num in nums:
+            output = output + [ele + [num] for ele in output]
+        return output
