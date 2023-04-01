@@ -15,6 +15,9 @@ class Solution:
         if target == 0:
             output.append(list(temp))
 
+        if target < 0:
+            return
+
         for i in range(idx, len(candidates)):
             if target - candidates[i] >= 0:
                 temp.append(candidates[i])
