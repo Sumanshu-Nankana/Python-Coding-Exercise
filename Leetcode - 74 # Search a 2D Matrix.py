@@ -36,15 +36,17 @@ class Solution:
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        m = len(matrix)  # number of rows
-        n = len(matrix[0])  # number of cols
+        m = len(matrix)  # no of rows
+        n = len(matrix[0])  # no of cols
 
-        top, bottom = 0, n - 1
+        top = 0
+        bottom = m - 1
 
-        # Apply Binary search on rows to find in whc=ich row
-        # element resides
+        # find the row in which our element exists
+
         while top <= bottom:
             row = (top + bottom) // 2
+
             if target > matrix[row][-1]:
                 top = row + 1
             elif target < matrix[row][0]:
@@ -52,18 +54,19 @@ class Solution:
             else:
                 break
 
-        # Once we find the row
-        # apply Binary Search in that row.
-        if top <= bottom:
-            row = (top + bottom) // 2
-            left, right = 0, cols - 1
-            while left <= right:
-                mid = (left + right) // 2
-                if matrix[row][mid] == target:
-                    return True
-                elif matrix[row][mid] < target:
-                    left = mid + 1
-                else:
-                    right = mid - 1
+        # Apply Binary search on that row
+
+        row = (top + bottom) // 2
+        left = 0
+        right = n - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if target == matrix[row][mid]:
+                return True
+            elif target > matrix[row][mid]:
+                left = mid + 1
+            else:
+                right = mid - 1
 
         return False
