@@ -5,6 +5,8 @@ class Solution:
         arrows = 1
         end = points[0][1]
 
+        points = points[1:]
+
         for start, stop in points:
             if start > end:
                 arrows += 1
