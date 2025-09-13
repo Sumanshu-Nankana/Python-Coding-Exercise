@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/validate-ip-address/description/
+
 import re
 
 class Solution:
@@ -20,11 +22,10 @@ class Solution:
         200 to 249 : 2[0-4]\d
         100 to 199 : 1\d{2}
         10 to 99   : [1-9]\d
-        1 to 9     : [1-9]
-        0          : 0
+        0 to 9     : \d
         So, first segment can be any of these expression, so simply combined using | (or) operator
         So first segment is:
-        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|[1-9]|0)"
+        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d)"
 
         Here 'r' means a raw-string, It's useful to use because if we will not use then backslash part will
         treated as python escape sequence, like \n is for new line ; \t for tab
@@ -75,7 +76,7 @@ class Solution:
         """
 
         # Creating the IPv4 Regex
-        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|[1-9]|0)"
+        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)"
 
         ipv4_pattern = ipv4_octet + r"\." + ipv4_octet + r"\." + ipv4_octet + r"\." + ipv4_octet
 
@@ -120,11 +121,10 @@ class Solution:
         200 to 249 : 2[0-4]\d
         100 to 199 : 1\d{2}
         10 to 99   : [1-9]\d
-        1 to 9     : [1-9]
-        0          : 0
+        0 to 9     : \d
         So, first segment can be any of these expression, so simply combined using | (or) operator
         So first segment is:
-        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|[1-9]|0)"
+        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)"
 
         Here 'r' means a raw-string, It's useful to use because if we will not use then backslash part will
         treated as python escape sequence, like \n is for new line ; \t for tab
@@ -174,7 +174,7 @@ class Solution:
 
         """
 
-        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|[1-9]|0)"
+        ipv4_octet = r"(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)"
         repeated_part = r"\." + ipv4_octet
         last_part = f"({repeated_part}){{3}}"
         complete_ipv4_pattern = ipv4_octet + last_part
