@@ -1,5 +1,5 @@
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
+    def numIslands(self, grid: list[list[str]]) -> int:
         rows, cols = len(grid), len(grid[0])
         number_of_islands = 0
         visited = set()
@@ -21,3 +21,32 @@ class Solution:
                     number_of_islands += 1
 
         return number_of_islands
+
+
+# No Extra Memory - Method-2
+class Solution:
+    def numIslands(self, grid: list[list[str]]) -> int:
+        rows, columns = len(grid), len(grid[0])
+
+        count = 0
+
+        def check_current_island(r, c):
+
+            if r < 0 or r >= rows or c < 0 or c >= columns or grid[r][c] == "0":
+                return
+
+            grid[r][c] = "0"
+            check_current_island(r, c + 1)
+            check_current_island(r, c - 1)
+            check_current_island(r + 1, c)
+            check_current_island(r - 1, c)
+
+        for r in range(rows):
+            for c in range(columns):
+                if grid[r][c] == "1":
+                    check_current_island(r, c)
+                    count += 1
+
+        return count
+
+
