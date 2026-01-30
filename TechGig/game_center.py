@@ -68,7 +68,7 @@ def main():
         grid.append(row)
 
     winners = []
-    best_guarantee = -1
+    best_guarantee = -float('inf')
 
     # Iterate through every cell
     for r in range(n):
@@ -109,6 +109,53 @@ def main():
 
             # Find the minimym value in this specific zone
             current_min = min(pool)
+
+            if current_min > best_guarantee:
+                best_guarantee = current_min
+                winners = [f"{r + 1}#{c + 1}"]
+            elif current_min == best_guarantee:
+                winners.append(f"{r + 1}#{c + 1}")
+
+    for pos in winners:
+        print(pos)
+
+
+main()
+
+## Little more compacted approach and without using pool to store values
+
+def main():
+    n = int(input())
+    grid = []
+    for i in range(n):
+        row = list(map(int, input().strip().split('#')))
+        grid.append(row)
+
+    winners = []
+    best_guarantee = -float('inf')
+
+    # Neighbor offsets (8 Directions)
+    neighbor_offset = [(-1, 0), (-1, -1), (-1, 1),  # Top Row, Top-Left, Top-Right
+                       (0, -1), (0, 1), # Left and Right
+                       (1, 0), (1, -1), (1, 1) # Bottom Row, Bottom-Left, Bottom-Right
+                      ]
+    # Iterate through every cell
+    for r in range(n):
+        for c in range(n):
+            current_min = [grid[r][c]]
+
+            for dr, dc in neighbor_offset:
+                nr = r + dr
+                nc = c + dc
+                if 0 <= nr < n and 0 <= nc < n:
+                    val = grid[nr][nc]
+                    if val < current_min:
+                        current_min = val
+
+                    # if the zone's minimum is worse than the best we have found
+                    # elsewhere, then stop checking that cell Neighbors
+                    if current_min < best_guarantee:
+                        break
 
             if current_min > best_guarantee:
                 best_guarantee = current_min
