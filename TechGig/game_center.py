@@ -137,14 +137,14 @@ def main():
 
     # Neighbor offsets (8 Directions)
     neighbor_offset = [
-        (-1, 0),
-        (-1, -1),
-        (-1, 1),  # Top Row, Top-Left, Top-Right
-        (0, -1),
-        (0, 1),  # Left and Right
-        (1, 0),
-        (1, -1),
-        (1, 1),  # Bottom Row, Bottom-Left, Bottom-Right
+        (-1, 0),  # Top
+        (-1, -1),  # Top-Left
+        (-1, 1),  # Top-Right
+        (0, -1),  # Left
+        (0, 1),  # Right
+        (1, 0),  # Bottom Row
+        (1, -1),  # Bottom-Left
+        (1, 1),  # Bottom-Right
     ]
     # Iterate through every cell
     for r in range(n):
